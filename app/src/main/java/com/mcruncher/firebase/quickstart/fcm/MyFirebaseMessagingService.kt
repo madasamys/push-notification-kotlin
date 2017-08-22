@@ -79,8 +79,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService()
             notification.issueType = remoteMessage.data["type"]
             notification.issueDescription = remoteMessage.data["description"]
             notificationService!!.addNotification(notification)
-            sendBroadcast(Intent("Received message"))
-            //sendNotification(sharedPreferences.getString("key",""));
+            sendBroadcast(Intent("Receivedmessage"))
             if (/* Check if data needs to be processed by long running job */ true)
             {
                 // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.

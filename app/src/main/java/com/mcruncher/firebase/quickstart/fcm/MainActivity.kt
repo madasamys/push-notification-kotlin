@@ -115,7 +115,6 @@ class MainActivity : AppCompatActivity()
         }
         val intentFilter = IntentFilter()
         intentFilter.addAction("Received message")
-        registerReceiver(myBroadcastReceiver, intentFilter)
         setListView()
     }
 
@@ -127,7 +126,7 @@ class MainActivity : AppCompatActivity()
         notificationAdapter!!.addObjects(notificationService!!.findAll())
     }
 
-    private inner class MyBroadcastReceiver : BroadcastReceiver()
+    inner class MyBroadcastReceiver : BroadcastReceiver()
     {
 
         override fun onReceive(context: Context, intent: Intent)

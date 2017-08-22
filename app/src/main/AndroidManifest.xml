@@ -61,6 +61,13 @@
             </intent-filter>
         </service>
 
+        <receiver android:name=".MainActivity$MyBroadcastReceiver">
+            <intent-filter>
+                <action android:name="Receivedmessage" />
+            </intent-filter>
+        </receiver>
+
+
         <!--<receiver-->
             <!--android:name=".GcmBroadcastReceiver"-->
             <!--android:permission="com.google.android.c2dm.permission.SEND" >-->
