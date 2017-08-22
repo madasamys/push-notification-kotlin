@@ -43,7 +43,7 @@ import java.util.TimeZone
 class MyFirebaseMessagingService : FirebaseMessagingService()
 {
     private var notificationService: NotificationService? = null
-    internal var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferences: SharedPreferences
 
     /**
      * Called when message is received.
@@ -158,23 +158,4 @@ class MyFirebaseMessagingService : FirebaseMessagingService()
 
         private val TAG = "MyFirebaseMsgService"
     }
-
-    //    @Override
-    //    public void handleIntent(Intent intent)
-    //    {
-    //        notificationService = new NotificationService(getApplicationContext());
-    //        super.handleIntent(intent);
-    //        if (intent.getExtras() != null) {
-    ////            for (String key : intent.getExtras().keySet()) {
-    ////                Object value = intent.getExtras().get(key);
-    ////                notification.setTerminalName(String.valueOf(value));
-    ////                notification.setIssueType("foo");
-    ////                notification.setIssueDescription("description");
-    ////                Log.d(TAG, "Key: " + key + " Value: " + value);
-    ////            }
-    //            Notification notification = new Notification();
-    //            notification.setTerminalName(String.valueOf(intent.getExtras().get("title")));
-    //            notificationService.addNotification(notification);
-    //        }
-    //    }
 }

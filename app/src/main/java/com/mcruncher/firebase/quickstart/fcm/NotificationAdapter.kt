@@ -16,7 +16,7 @@ import android.widget.TextView
 class NotificationAdapter(context: Context, @LayoutRes resource: Int) : ArrayAdapter<Notification>(context, resource)
 {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View?
     {
         var view = convertView
         if (view == null)
@@ -31,21 +31,21 @@ class NotificationAdapter(context: Context, @LayoutRes resource: Int) : ArrayAda
         return view
     }
 
-    private fun setTitleTextView(view: View, notification: Notification?)
+    private fun setTitleTextView(view: View?, notification: Notification?)
     {
-        val terminalNameTextView = view.findViewById(R.id.terminalName) as TextView
+        val terminalNameTextView = view?.findViewById(R.id.terminalName) as TextView
         terminalNameTextView.text = notification!!.terminalName
     }
 
-    private fun setType(view: View, notification: Notification?)
+    private fun setType(view: View?, notification: Notification?)
     {
-        val typeTextView = view.findViewById(R.id.type) as TextView
+        val typeTextView = view?.findViewById(R.id.type) as TextView
         typeTextView.text = notification!!.issueType
     }
 
-    private fun setDescription(view: View, notification: Notification?)
+    private fun setDescription(view: View?, notification: Notification?)
     {
-        val descriptionTextView = view.findViewById(R.id.description) as TextView
+        val descriptionTextView = view?.findViewById(R.id.description) as TextView
         descriptionTextView.text = notification!!.issueDescription
     }
 
