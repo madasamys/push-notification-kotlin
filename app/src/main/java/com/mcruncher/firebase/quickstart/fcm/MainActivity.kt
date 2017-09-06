@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity()
         setContentView(R.layout.activity_main)
         notificationService = NotificationService(this)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        Log.i(TAG, "Set " + sharedPreferences!!.getString("key", "")!!)
         //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         //            // Create channel to show notifications.
         //            String channelId = getString(R.string.default_notification_channel_id);
@@ -85,7 +84,9 @@ class MainActivity : AppCompatActivity()
                 Log.d(TAG, "Key: $key Value: $value")
             }
         }
+        // [END handle_data_extras]
 
+        //Handle path accompanying scheme
         if (intent.data != null)
         {
             val uri = intent.data
@@ -96,21 +97,11 @@ class MainActivity : AppCompatActivity()
             }
         }
 
-//        val notificationManager = getSystemService<NotificationManager>(NotificationManager)
-//        val activeNotifications = notificationManager.activeNotifications
-//        for (statusBarNotification in notificationManager.activeNotifications)
-//        {
-//            Log.i(TAG, "Notification " + statusBarNotification.notification.extras.getString("title", ""))
-//        }
-
-        // [END handle_data_extras]
-
         val subscribeButton = findViewById(R.id.subscribeButton) as Button
         subscribeButton.setOnClickListener {
-            // [START subscribe_topics]
+            // [START subscribe_topics]'
             FirebaseMessaging.getInstance().subscribeToTopic("news")
             // [END subscribe_topics]
-
             // Log and toast
             val msg = getString(R.string.msg_subscribed)
             Log.d(TAG, msg)
