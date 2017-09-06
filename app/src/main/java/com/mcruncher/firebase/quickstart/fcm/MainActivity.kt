@@ -31,6 +31,7 @@ import android.preference.PreferenceManager
 import android.service.notification.StatusBarNotification
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -39,6 +40,9 @@ import android.widget.Toast
 
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
+import org.cryptonode.jncryptor.AES256JNCryptor
+import org.cryptonode.jncryptor.JNCryptor
+
 
 class MainActivity : AppCompatActivity()
 {
@@ -90,11 +94,19 @@ class MainActivity : AppCompatActivity()
         if (intent.data != null)
         {
             val uri = intent.data
-            Log.d(TAG, "Data :" + uri.path)
-            for (path in uri.pathSegments)
-            {
-                Log.d(TAG, "Path :" + path)
-            }
+            val path = uri.path
+            Log.d(TAG, "Absolute path : $path")
+            val substringPath = path.substring(1)
+            Log.d(TAG, "Actual path : $substringPath")
+            val decoder = Base64.decode(substringPath, Base64.DEFAULT)
+            val encrypt = AES256JNCryptor()
+            val decryptValue = encrypt.decryptData(decoder, "Secretpassword".toCharArray())
+            Log.d(TAG, "Decrypt value :" + String(decryptValue))
+            Toast.makeText(this, String(decryptValue), Toast.LENGTH_LONG).show()
+//            for (path in uri.pathSegments)
+//            {
+//                Log.d(TAG, "Path :" + path)
+//            }
         }
 
         val subscribeButton = findViewById(R.id.subscribeButton) as Button
