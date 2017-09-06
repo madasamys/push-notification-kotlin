@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity()
         //            String channelId = getString(R.string.default_notification_channel_id);
         //            String channelName = getString(R.string.default_notification_channel_name);
         //            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        //            notificationManager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW));
+//                    notificationManager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW));
         //        }
 
         // If a notification message is tapped, any data accompanying the notification
@@ -74,6 +74,9 @@ class MainActivity : AppCompatActivity()
         // Handle possible data accompanying notification message.
         // [START handle_data_extras]
 
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        var notifications = notificationManager.activeNotifications.size
+        Log.d(TAG, "Notifications: $notifications ")
         if (intent.extras != null)
         {
             for (key in intent.extras.keySet())
@@ -82,6 +85,17 @@ class MainActivity : AppCompatActivity()
                 Log.d(TAG, "Key: $key Value: $value")
             }
         }
+
+        if (intent.data != null)
+        {
+            val uri = intent.data
+            Log.d(TAG, "Data :" + uri.path)
+            for (path in uri.pathSegments)
+            {
+                Log.d(TAG, "Path :" + path)
+            }
+        }
+
 //        val notificationManager = getSystemService<NotificationManager>(NotificationManager)
 //        val activeNotifications = notificationManager.activeNotifications
 //        for (statusBarNotification in notificationManager.activeNotifications)
@@ -115,6 +129,7 @@ class MainActivity : AppCompatActivity()
         }
         val intentFilter = IntentFilter()
         intentFilter.addAction("Received message")
+        registerReceiver(myBroadcastReceiver, intentFilter)
         setListView()
     }
 
