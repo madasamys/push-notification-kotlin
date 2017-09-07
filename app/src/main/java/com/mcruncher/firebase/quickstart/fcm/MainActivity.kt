@@ -41,6 +41,7 @@ import android.widget.Toast
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import org.cryptonode.jncryptor.AES256JNCryptor
+import org.cryptonode.jncryptor.AES256JNCryptorInputStream
 import org.cryptonode.jncryptor.JNCryptor
 
 
@@ -100,13 +101,12 @@ class MainActivity : AppCompatActivity()
             Log.d(TAG, "Actual path : $substringPath")
             val decoder = Base64.decode(substringPath, Base64.DEFAULT)
             val encrypt = AES256JNCryptor()
-            val decryptValue = encrypt.decryptData(decoder, "Secretpassword".toCharArray())
-            Log.d(TAG, "Decrypt value :" + String(decryptValue))
-            Toast.makeText(this, String(decryptValue), Toast.LENGTH_LONG).show()
-//            for (path in uri.pathSegments)
-//            {
-//                Log.d(TAG, "Path :" + path)
-//            }
+            val decryptBytes = encrypt.decryptData(decoder, "Secretpassword".toCharArray())
+            val decryptValue = String(decryptBytes)
+            Log.d(TAG, "Decrypt value :" + decryptValue)
+            Toast.makeText(this, decryptValue, Toast.LENGTH_LONG).show()
+            val serverUrlArray = decryptValue.split(";")
+            Log.d(TAG, "Server url array :" + serverUrlArray)
         }
 
         val subscribeButton = findViewById(R.id.subscribeButton) as Button
